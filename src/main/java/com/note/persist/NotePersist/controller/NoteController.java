@@ -36,7 +36,7 @@ public class NoteController {
 	}
 
 	public ArrayList<Note> getNotes() {
-		return this.notesCreated;
+		return noteRepository.getNotes();
 	}
 
 	public void setNotes(ArrayList<Note> notes) {
@@ -50,7 +50,8 @@ public class NoteController {
 	}
 
 	// Test 4
-	public boolean printNote(Note nota, String path) throws FileNotFoundException, IOException {
+	public boolean printNote(Note nota, String path)
+			throws FileNotFoundException, IOException {
 		final boolean printed = noteRepository.printNote(nota, path);
 
 		return printed;
@@ -63,7 +64,8 @@ public class NoteController {
 	}
 
 	// Test 6
-	public Note importNote(String path) throws ClassNotFoundException, IOException {
+	public Note importNote(String path)
+			throws ClassNotFoundException, IOException {
 		return noteRepository.importOneNote(path);
 	}
 
@@ -73,8 +75,14 @@ public class NoteController {
 	}
 
 	// Test 8
-	public Note updateNote(Note note) {
+	public Note updateNote(Note note, Note newNote) {
 		// TODO Auto-generated method stub
-		return null;
+		return noteRepository.updateNote(note, newNote);
+	}
+
+	// Test 9
+	public String checkLink(Note note) {
+		// TODO Auto-generated method stub
+		return "";
 	}
 }

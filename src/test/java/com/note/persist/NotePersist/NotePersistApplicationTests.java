@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
+import com.note.persist.NotePersist.controller.NoteController;
+
 @SpringBootTest
 class NotePersistApplicationTests {
 
@@ -18,9 +20,8 @@ class NotePersistApplicationTests {
 
 		final LocalDateTime local2 = LocalDateTime.now();
 
-		final bool isCreated = noteController.createNote(id,
-				"description", "text", local, local2, "link",
-				"mentions", 'p');
+		final boolean isCreated = noteController.createNote(2, "description", "text", local, local2, "link", "mentions",
+				'p');
 
 		Assert.isTrue(isCreated, "Note must have all the requisites");
 

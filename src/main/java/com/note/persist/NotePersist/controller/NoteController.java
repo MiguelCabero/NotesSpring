@@ -50,8 +50,7 @@ public class NoteController {
 	}
 
 	// Test 4
-	public boolean printNote(Note nota, String path)
-			throws FileNotFoundException, IOException {
+	public boolean printNote(Note nota, String path) throws FileNotFoundException, IOException {
 		final boolean printed = noteRepository.printNote(nota, path);
 
 		return printed;
@@ -63,8 +62,19 @@ public class NoteController {
 		return export;
 	}
 
-	public Note importNote(String path)
-			throws ClassNotFoundException, IOException {
+	// Test 6
+	public Note importNote(String path) throws ClassNotFoundException, IOException {
 		return noteRepository.importOneNote(path);
+	}
+
+	// Test 7
+	public boolean deleteNote(int id) {
+		return noteRepository.deleteNote(id);
+	}
+
+	// Test 8
+	public Note updateNote(Note note) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

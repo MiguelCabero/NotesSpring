@@ -23,8 +23,7 @@ class NotePersistApplicationTests {
 	@Test
 	void createNote_WhenCorrectArguments_ReturnsTrue() {
 
-		final Note note = new Note(1, "description", "text", local,
-				local2, "link", "mentions", 'a');
+		final Note note = new Note(1, "description", "text", local, local2, "link", "mentions", 'a');
 
 		final boolean isCreated = noteController.createNote(note);
 
@@ -37,8 +36,7 @@ class NotePersistApplicationTests {
 	void getNotes_WhenCalled_ReturnsAllNotes() {
 
 		for (int i = 0; i < 5; i++) {
-			final Note note = new Note(i, "description", "text",
-					local, local2, "link", "mentions", 'p');
+			final Note note = new Note(i, "description", "text", local, local2, "link", "mentions", 'p');
 			noteController.createNote(note);
 		}
 		final ArrayList<Note> noteList = noteController.getNotes();
@@ -52,8 +50,7 @@ class NotePersistApplicationTests {
 	void getOneNote_WhenCalled_ReturnsTheNote() {
 
 		for (int i = 0; i < 5; i++) {
-			final Note note = new Note(i + 1, "description", "text",
-					local, local2, "link", "mentions", 'p');
+			final Note note = new Note(i + 1, "description", "text", local, local2, "link", "mentions", 'p');
 			noteController.createNote(note);
 			noteController.saveNote(note);
 		}
@@ -65,43 +62,34 @@ class NotePersistApplicationTests {
 
 	// Test 4
 	@Test
-	void printNoteIntoFile_WhenCalled_ReturnsTrue()
-			throws FileNotFoundException, IOException {
-		final Note note = new Note(1, "description", "text", local,
-				local2, "link", "mentions", 'p');
+	void printNoteIntoFile_WhenCalled_ReturnsTrue() throws FileNotFoundException, IOException {
+		final Note note = new Note(1, "description", "text", local, local2, "link", "mentions", 'p');
 		final String username = System.getProperty("user.name");
 		noteController.saveNote(note);
 
 		final boolean printedNote = noteController.printNote(note,
-				"C:\\Users\\" + username + "\\Documents\\note"
-						+ note.getId() + ".txt");
+				"C:\\Users\\" + username + "\\Documents\\note" + note.getId() + ".txt");
 		Assert.isTrue(printedNote, "Note is saved correctly");
 	}
 
 	// Test 5
 	@Test
-	void exportNoteIntoFile_WhenCalled_ReturnsTrue()
-			throws FileNotFoundException, IOException {
-		final Note note = new Note(1, "description", "text", local,
-				local2, "link", "mentions", 'p');
+	void exportNoteIntoFile_WhenCalled_ReturnsTrue() throws FileNotFoundException, IOException {
+		final Note note = new Note(1, "description", "text", local, local2, "link", "mentions", 'p');
 		final String username = System.getProperty("user.name");
 		noteController.saveNote(note);
 
 		final boolean exportedNote = noteController.exportNote(note,
-				"C:\\Users\\" + username + "\\Documents\\note"
-						+ note.getId() + ".ser");
+				"C:\\Users\\" + username + "\\Documents\\note" + note.getId() + ".ser");
 		Assert.isTrue(exportedNote, "Note is saved correctly");
 	}
 
 	// Test 6
 	@Test
-	void importNoteFromFile_WhenCalled_ReturnsFile()
-			throws ClassNotFoundException, IOException {
-		final Note note = new Note(1, "description", "text", local,
-				local2, "link", "mentions", 'p');
+	void importNoteFromFile_WhenCalled_ReturnsFile() throws ClassNotFoundException, IOException {
+		final Note note = new Note(1, "description", "text", local, local2, "link", "mentions", 'p');
 		final String username = System.getProperty("user.name");
-		final String path = "C:\\Users\\" + username
-				+ "\\Documents\\note1.ser";
+		final String path = "C:\\Users\\" + username + "\\Documents\\note1.ser";
 
 		noteController.exportNote(note, path);
 
@@ -110,10 +98,24 @@ class NotePersistApplicationTests {
 
 	// Test 7
 	@Test
-	void deleteNote_WhenCalled_ReturnsTrue()
-		
-	
-		Assert.isTrue(noteController.deleteNote());
+	void deleteNote_WhenCalled_ReturnsTrue() {
+		for (int i = 0; i < 5; i++) {
+			final Note note = new Note(i + 1, "description", "text", local, local2, "link", "mentions", 'p');
+			noteController.createNote(note);
+			noteController.saveNote(note);
+		}
+		final boolean delete = noteController.deleteNote(1);
+
+		Assert.isTrue(delete, "Note removed");
 	}
 
+	// Test 8
+	@Test
+	void updateNote_WhenCalled_ReturnsNote() {
+		final Note note = new Note(1, "description", "text", local, local2, "link", "mentions", 'p');
+		noteController.createNote(note);
+		noteController.saveNote(note);
+
+		assertEquals(note, noteController.updateNote(note));
+	}
 }

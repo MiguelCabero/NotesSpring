@@ -2,6 +2,7 @@ package com.note.persist.NotePersist;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Note implements Serializable {
 	/**
@@ -22,8 +23,9 @@ public class Note implements Serializable {
 		this.created = null;
 	}
 
-	public Note(int id, String description, String text, LocalDateTime created, LocalDateTime completed, String link,
-			String mentions, char priority) {
+	public Note(int id, String description, String text,
+			LocalDateTime created, LocalDateTime completed,
+			String link, String mentions, char priority) {
 		super();
 		this.id = id;
 		this.description = description;
@@ -93,9 +95,38 @@ public class Note implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Note [id=" + id + ", description=" + description + ", text=" + text + ", created=" + created
-				+ ", completed=" + completed + ", link=" + link + ", mentions=" + mentions + ", priority=" + priority
+		return "Note [id=" + id + ", description=" + description
+				+ ", text=" + text + ", created=" + created
+				+ ", completed=" + completed + ", link=" + link
+				+ ", mentions=" + mentions + ", priority=" + priority
 				+ "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(completed, created, description, id, link,
+				mentions, priority, text);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Note other = (Note) obj;
+		return Objects.equals(completed, other.completed)
+				&& Objects.equals(created, other.created)
+				&& Objects.equals(description, other.description)
+				&& id == other.id && Objects.equals(link, other.link)
+				&& Objects.equals(mentions, other.mentions)
+				&& priority == other.priority
+				&& Objects.equals(text, other.text);
 	}
 
 }

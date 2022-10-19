@@ -50,7 +50,8 @@ public class NoteController {
 	}
 
 	// Test 4
-	public boolean printNote(Note nota, String path) throws FileNotFoundException, IOException {
+	public boolean printNote(Note nota, String path)
+			throws FileNotFoundException, IOException {
 		final boolean printed = noteRepository.printNote(nota, path);
 
 		return printed;
@@ -62,8 +63,8 @@ public class NoteController {
 		return export;
 	}
 
-	public Note importNote(String path) {
-		Note note = new Note();
-		return note;
+	public Note importNote(String path)
+			throws ClassNotFoundException, IOException {
+		return noteRepository.importOneNote(path);
 	}
 }

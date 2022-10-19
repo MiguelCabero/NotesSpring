@@ -12,9 +12,8 @@ public class Note {
 	private String mentions;
 	private char priority;
 
-	public Note(int id, String description, String text,
-			LocalDateTime created, LocalDateTime completed,
-			String link, String mentions, char priority) {
+	public Note(int id, String description, String text, LocalDateTime created, LocalDateTime completed, String link,
+			String mentions, char priority) {
 		super();
 		this.id = id;
 		this.description = description;
@@ -80,6 +79,13 @@ public class Note {
 
 	public LocalDateTime getCreated() {
 		return created;
+	}
+
+	@Override
+	public String toString() {
+		return "Note [id=" + id + ", description=" + description + ", text=" + text + ", created=" + created
+				+ ", completed=" + completed + ", link=" + link + ", mentions=" + mentions + ", priority=" + priority
+				+ "]";
 	}
 
 }

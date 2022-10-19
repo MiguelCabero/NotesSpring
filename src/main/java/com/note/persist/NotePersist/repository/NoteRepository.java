@@ -23,4 +23,7 @@ public class NoteRepository {
 		this.notes.add(note);
 	}
 
+	public Note getNote(int id) {
+		return notes.stream().filter(item -> item.getId() == id).findAny().get();
+	}
 }

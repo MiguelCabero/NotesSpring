@@ -10,10 +10,11 @@ import com.note.persist.NotePersist.repository.NoteRepository;
 public class NoteController {
 
 	@Autowired
-	NoteRepository noteRepository;
+	NoteRepository noteRepository = new NoteRepository();
 
 	ArrayList<Note> notesCreated = new ArrayList<>();
 
+	// Test 1
 	public boolean createNote(Note note) {
 		boolean response = false;
 
@@ -27,9 +28,8 @@ public class NoteController {
 		return response;
 	}
 
+	// Test 2
 	public void saveNote(Note note) {
-		final boolean response = false;
-
 		noteRepository.addNote(note);
 	}
 
@@ -41,4 +41,14 @@ public class NoteController {
 		this.notesCreated = notes;
 	}
 
+	// Test 3
+	public Note getOneNote(int id) {
+		Note nota = noteRepository.getNote(id);
+		return nota;
+	}
+
+	// Test 4
+	public boolean exportNote(Note nota) {
+		return false;
+	}
 }

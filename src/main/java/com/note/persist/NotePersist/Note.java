@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class Note implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final int id;
 	private String description;
 	private String text;
@@ -13,9 +17,13 @@ public class Note implements Serializable {
 	private String mentions;
 	private char priority;
 
-	public Note(int id, String description, String text,
-			LocalDateTime created, LocalDateTime completed,
-			String link, String mentions, char priority) {
+	public Note() {
+		this.id = 0;
+		this.created = null;
+	}
+
+	public Note(int id, String description, String text, LocalDateTime created, LocalDateTime completed, String link,
+			String mentions, char priority) {
 		super();
 		this.id = id;
 		this.description = description;
@@ -85,10 +93,8 @@ public class Note implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Note [id=" + id + ", description=" + description
-				+ ", text=" + text + ", created=" + created
-				+ ", completed=" + completed + ", link=" + link
-				+ ", mentions=" + mentions + ", priority=" + priority
+		return "Note [id=" + id + ", description=" + description + ", text=" + text + ", created=" + created
+				+ ", completed=" + completed + ", link=" + link + ", mentions=" + mentions + ", priority=" + priority
 				+ "]";
 	}
 

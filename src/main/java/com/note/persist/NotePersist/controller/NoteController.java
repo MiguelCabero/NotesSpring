@@ -50,10 +50,20 @@ public class NoteController {
 	}
 
 	// Test 4
-	public boolean printNote(Note nota, String path)
-			throws FileNotFoundException, IOException {
+	public boolean printNote(Note nota, String path) throws FileNotFoundException, IOException {
 		final boolean printed = noteRepository.printNote(nota, path);
 
 		return printed;
+	}
+
+	// Test 5
+	public boolean exportNote(Note note, String path) {
+		final boolean export = noteRepository.exportNote(note, path);
+		return export;
+	}
+
+	public Note importNote(String path) {
+		Note note = new Note();
+		return note;
 	}
 }

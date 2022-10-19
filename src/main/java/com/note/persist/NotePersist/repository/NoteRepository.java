@@ -33,14 +33,18 @@ public class NoteRepository {
 	}
 
 	public Note getNote(int id) {
-		return notes.stream().filter(item -> item.getId() == id).findAny().get();
+		return notes.stream().filter(item -> item.getId() == id)
+				.findAny().get();
 	}
 
-	public boolean printNote(Note nota, String path) throws FileNotFoundException, IOException {
+	public boolean printNote(Note nota, String path)
+			throws FileNotFoundException, IOException {
 		final String CSV_SEPARATOR = ",";
 		boolean response = false;
 		try {
-			final BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path), "UTF-8"));
+			final BufferedWriter bw = new BufferedWriter(
+					new OutputStreamWriter(new FileOutputStream(path),
+							"UTF-8"));
 			final StringBuffer oneLine = new StringBuffer();
 
 			oneLine.append(nota.getId());
@@ -73,7 +77,9 @@ public class NoteRepository {
 
 	public boolean exportNote(Note note, String path) {
 		boolean response = false;
-		try (FileOutputStream fos = new FileOutputStream(path); ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+		try (FileOutputStream fos = new FileOutputStream(path);
+				ObjectOutputStream oos = new ObjectOutputStream(
+						fos)) {
 			oos.writeObject(note);
 			response = true;
 		} catch (final IOException ex) {
@@ -82,7 +88,8 @@ public class NoteRepository {
 		return response;
 	}
 
-	public Note importOneNote(String path) throws IOException, ClassNotFoundException {
+	public Note importOneNote(String path)
+			throws IOException, ClassNotFoundException {
 		try {
 			final FileInputStream file = new FileInputStream(path);
 			final ObjectInputStream in = new ObjectInputStream(file);
@@ -105,7 +112,8 @@ public class NoteRepository {
 	}
 
 	public boolean deleteNote(int id) {
-		return this.notes.remove(notes.stream().filter(item -> item.getId() == id).findAny().get());
+		return this.notes.remove(notes.stream()
+				.filter(item -> item.getId() == id).findAny().get());
 	}
 
 	public Note updateNote(Note note, Note newNote) {
@@ -116,14 +124,17 @@ public class NoteRepository {
 
 	public String checkLink(String link) {
 		String type = "";
-		ArrayList<String> patternString = new ArrayList<String>(
-				Arrays.asList("(.*).pdf", "(.*)@(.*)", "(.*)youtube(.*)", "http://(.*)", "https://(.*)"));
+		final ArrayList<String> patternString = new ArrayList<String>(
+				Arrays.asList("(.*).pdf", "(.*)@(.*)",
+						"(.*)youtube(.*)", "http://(.*)",
+						"https://(.*)"));
 
 		boolean flag = false;
 		for (int i = 0; i < patternString.size() && !flag; i++) {
 			flag = checkPattern(link, patternString.get(i));
-			if (flag)
+			if (flag) {
 				type = patternString.get(i);
+			}
 		}
 
 		switch (type) {
@@ -141,7 +152,8 @@ public class NoteRepository {
 			type = "It's a webpage";
 			break;
 		default:
-			throw new IllegalArgumentException("Unexpected value: " + type);
+			throw new IllegalArgumentException(
+					"Unexpected value: " + type);
 		}
 		return type;
 	}
@@ -150,4 +162,12 @@ public class NoteRepository {
 		return link.matches(patternString);
 	}
 
+	public String getMentionLink(Note note) {
+		String mention = note.getMentions();
+		if (mention.matches("@(.*)")) {
+			mention = "https://www.twitter.com/"
+					+ mention.substring(1);
+		}
+		return mention;
+	}
 }

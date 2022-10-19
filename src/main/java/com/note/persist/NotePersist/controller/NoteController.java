@@ -1,5 +1,7 @@
 package com.note.persist.NotePersist.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +45,15 @@ public class NoteController {
 
 	// Test 3
 	public Note getOneNote(int id) {
-		Note nota = noteRepository.getNote(id);
+		final Note nota = noteRepository.getNote(id);
 		return nota;
 	}
 
 	// Test 4
-	public boolean exportNote(Note nota) {
-		return false;
+	public boolean printNote(Note nota, String path)
+			throws FileNotFoundException, IOException {
+		final boolean printed = noteRepository.printNote(nota, path);
+
+		return printed;
 	}
 }

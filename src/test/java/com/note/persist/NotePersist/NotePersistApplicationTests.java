@@ -49,4 +49,23 @@ class NotePersistApplicationTests {
 		assertEquals(5, noteList.size());
 
 	}
+
+	@Test
+	void getOneNote_WhenCalled_ReturnsTheNote() {
+
+		final NoteController noteController = new NoteController();
+		final LocalDateTime local = LocalDateTime.now();
+		final LocalDateTime local2 = LocalDateTime.now();
+
+		for (int i = 0; i < 5; i++) {
+			final Note note = new Note(i, "description", "text",
+					local, local2, "link", "mentions", 'p');
+			noteController.createNote(note);
+		}
+		final Note noteFinded = noteController.getOneNote(1);
+		final ArrayList<Note> noteList = noteController.getNotes();
+
+		assertEquals(noteList.get(1), noteFinded);
+
+	}
 }
